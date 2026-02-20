@@ -10,17 +10,21 @@ export default function Blog1() {
                         fontSize={{ base: '3xl', md: '5xl' }}
                         letterSpacing="widest"
                     >
-                        Blog
+                        Designing the Inversion Mechanic
                     </Heading>
 
                     <Text color="gray.300" fontSize={{ base: 'md', md: 'lg' }} maxW="800px">
-                        Articles coming soon. We&apos;re preparing posts covering coffee origins, brewing methods,
-                        behind-the-scenes stories, and product updates. This section will house all future blog
-                        content once published.
+                        Our game, <strong>Inversion</strong>, is built around a simple idea: every room in the
+                        temple can be flipped between two states. Walls become paths, platforms move, and hidden
+                        routes are revealed. The challenge was to make this mechanic feel powerful without making
+                        puzzles random or frustrating.
                     </Text>
 
                     <Text color="gray.500" fontSize={{ base: 'sm', md: 'md' }} maxW="700px">
-                        Until then, feel free to explore the rest of the site or check back for updates.
+                        To keep things readable, we added clear visual markers on objects that change when a
+                        room inverts. Each puzzle uses a small number of possible configurations so players can
+                        plan ahead instead of guessing. This post covers the early prototypes where we tested
+                        how many inversion points a single room could handle before it became too confusing.
                     </Text>
                 </Flex>
             </Container>
