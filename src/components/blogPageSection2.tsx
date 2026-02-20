@@ -10,20 +10,25 @@ export default function Blog2() {
                         fontSize={{ base: '3xl', md: '5xl' }}
                         letterSpacing="widest"
                     >
-                        Blog
+                        Turning Ancient History into Level Design
                     </Heading>
 
                     <Text color="gray.300" fontSize={{ base: 'md', md: 'lg' }} maxW="800px">
-                        Articles coming soon. We&apos;re preparing posts covering coffee origins, brewing methods,
-                        behind-the-scenes stories, and product updates. This section will house all future blog
-                        content once published.
+                        One of our early goals for <strong>Inversion</strong> was to ground the puzzles in an
+                        ancient-world atmosphere without copying any specific civilisation. We studied Mediterranean
+                        ruins, labyrinth structures, burial chambers, and temple architecture to guide the way rooms
+                        look and feel.
                     </Text>
 
                     <Text color="gray.500" fontSize={{ base: 'sm', md: 'md' }} maxW="700px">
-                        Until then, feel free to explore the rest of the site or check back for updates.
+                        Each level is themed around a small narrative moment—such as retrieving a relic, navigating a
+                        collapsing hallway, or unlocking a forgotten chamber. From there, we build inversion points
+                        that reinforce the story. This approach makes the puzzles feel intentional and connected to the
+                        world rather than random mechanical challenges.
                     </Text>
                 </Flex>
             </Container>
         </Box>
     )
 }
+
