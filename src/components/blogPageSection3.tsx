@@ -10,17 +10,23 @@ export default function Blog3() {
                         fontSize={{ base: '3xl', md: '5xl' }}
                         letterSpacing="widest"
                     >
-                        Blog
+                        Playtesting, Balance & Accessibility Improvements
                     </Heading>
 
                     <Text color="gray.300" fontSize={{ base: 'md', md: 'lg' }} maxW="800px">
-                        Articles coming soon. We&apos;re preparing posts covering coffee origins, brewing methods,
-                        behind-the-scenes stories, and product updates. This section will house all future blog
-                        content once published.
+                        After building our first set of puzzle rooms for <strong>Inversion</strong>, we carried out
+                        informal playtests with other students. One common issue was that some players didn&apos;t
+                        immediately realise when a room had inverted, which made certain puzzles feel harder than
+                        intended.
                     </Text>
 
                     <Text color="gray.500" fontSize={{ base: 'sm', md: 'md' }} maxW="700px">
-                        Until then, feel free to explore the rest of the site or check back for updates.
+                        To improve clarity, we added stronger audio cues, a subtle screen shake, and more obvious 
+                        colour changes for objects that move after inversion. We also restructured the level order 
+                        so new mechanics are introduced slowly and fairly. Accessibility was another focus: we 
+                        simplified controls, reduced visual clutter, and ensured key information isn&apos;t shown 
+                        through colour alone. These changes help make the game more approachable while maintaining 
+                        the challenge.
                     </Text>
                 </Flex>
             </Container>
