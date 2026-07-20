@@ -10,5 +10,5 @@ type Post struct {
 	Tags        []string  `bson:"tags" json:"tags"`
 	PublishedAt time.Time `bson:"publishedAt" json:"publishedAt"`
 	Published   bool      `bson:"published" json:"-"`
-	Body        string    `bson:"body" json:"body"`
+	Body        string    `bson:"body" json:"body,omitempty"`
 }
