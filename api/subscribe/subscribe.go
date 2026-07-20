@@ -90,7 +90,7 @@ func getMongoClient(ctx context.Context) (*mongo.Client, error) {
 	cctx, cancel := context.WithTimeout(ctx, 10*time.Second)
 	defer cancel()
 
-	client, err := mongo.Connect(cctx, options.Client().ApplyURI(uri))
+	client, err := mongo.Connect(cctx, options.Client().ApplyURI(uri).SetMaxPoolSize(5))
 	if err != nil {
 		return nil, err
 	}

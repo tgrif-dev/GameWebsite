@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 
 	"inversionGameWebsite/models"
@@ -18,16 +19,16 @@ var mongoClient *mongo.Client
 
 func Handler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS")
-	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, X-Admin-Key")
 
 	if r.Method == http.MethodOptions {
 		w.WriteHeader(http.StatusNoContent)
 		return
 	}
 
-	if r.Method != http.MethodGet {
-		http.Error(w, "GET only", http.StatusMethodNotAllowed)
+	if r.Method != http.MethodGet && r.Method != http.MethodPost {
+		http.Error(w, "GET or POST only", http.StatusMethodNotAllowed)
 		return
 	}
 
@@ -43,6 +44,12 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	collection := client.Database(dbName).Collection("posts")
+
+	if r.Method == http.MethodPost {
+		createPost(w, r, collection)
+		return
+	}
+
 	w.Header().Set("Content-Type", "application/json")
 
 	slug := r.URL.Query().Get("slug")
@@ -82,6 +89,54 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(posts)
 }
 
+func createPost(w http.ResponseWriter, r *http.Request, collection *mongo.Collection) {
+	adminKey := os.Getenv("ADMIN_KEY")
+	if adminKey == "" || r.Header.Get("X-Admin-Key") != adminKey {
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
+
+	var post models.Post
+	if err := json.NewDecoder(r.Body).Decode(&post); err != nil {
+		http.Error(w, "Invalid JSON", http.StatusBadRequest)
+		return
+	}
+
+	post.Slug = strings.TrimSpace(strings.ToLower(post.Slug))
+	post.Title = strings.TrimSpace(post.Title)
+	post.Excerpt = strings.TrimSpace(post.Excerpt)
+	post.CoverImage = strings.TrimSpace(post.CoverImage)
+
+	if post.Slug == "" || post.Title == "" || post.Body == "" {
+		http.Error(w, "Slug, title and body required", http.StatusBadRequest)
+		return
+	}
+
+	if post.PublishedAt.IsZero() {
+		post.PublishedAt = time.Now().UTC()
+	}
+
+	if post.Tags == nil {
+		post.Tags = []string{}
+	}
+
+	post.Published = false
+
+	_, err := collection.InsertOne(r.Context(), post)
+	if mongo.IsDuplicateKeyError(err) {
+		http.Error(w, "A post with that slug already exists", http.StatusConflict)
+		return
+	}
+	if err != nil {
+		http.Error(w, "Insert failed", http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(map[string]string{"slug": post.Slug})
+}
+
 func getMongoClient(ctx context.Context) (*mongo.Client, error) {
 	if mongoClient != nil {
 		return mongoClient, nil
@@ -95,7 +150,7 @@ func getMongoClient(ctx context.Context) (*mongo.Client, error) {
 	cctx, cancel := context.WithTimeout(ctx, 10*time.Second)
 	defer cancel()
 
-	client, err := mongo.Connect(cctx, options.Client().ApplyURI(uri))
+	client, err := mongo.Connect(cctx, options.Client().ApplyURI(uri).SetMaxPoolSize(5))
 	if err != nil {
 		return nil, err
 	}
