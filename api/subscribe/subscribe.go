@@ -61,6 +61,12 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		"email":     sub.Email,
 		"createdAt": time.Now().UTC(),
 	})
+	if mongo.IsDuplicateKeyError(err) {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte(`{"ok":true,"already":true}`))
+		return
+	}
 	if err != nil {
 		http.Error(w, "Insert failed", http.StatusInternalServerError)
 		return
