@@ -1,5 +1,5 @@
 package models
 
 type Subscriber struct {
-	Email string `json:"email"`
+	Email string `bson:"email" json:"email"`
 }
