@@ -1,5 +1,6 @@
 package models
 
+import "time"
 
 type Post struct {
 	Slug        string    `bson:"slug" json:"slug"`
@@ -7,7 +8,7 @@ type Post struct {
 	Excerpt     string    `bson:"excerpt" json:"excerpt"`
 	CoverImage  string    `bson:"coverImage" json:"coverImage"`
 	Tags        []string  `bson:"tags" json:"tags"`
-	PublishedAt string `bson:"publishedAt" json:"publishedAt"`
+	PublishedAt time.Time `bson:"publishedAt" json:"publishedAt"`
 	Published   bool      `bson:"published" json:"-"`
 	Body        string    `bson:"body" json:"body"`
 }
