@@ -14,6 +14,10 @@ export type Post = PostSummary & {
   body: string
 }
 
+export type AdminPost = PostSummary & {
+  published: boolean
+}
+
 export type NewPost = {
   slug: string
   title: string
@@ -51,6 +55,41 @@ export async function fetchPost(slug: string, signal?: AbortSignal): Promise<Pos
   if (res.status === 404) throw new NotFoundError('Post not found')
   if (!res.ok) throw new Error(`Post request failed (${res.status})`)
   return res.json()
+}
+
+export async function fetchAllPosts(
+  adminKey: string,
+  signal?: AbortSignal
+): Promise<AdminPost[]> {
+  const res = await fetch(`${API_BASE}/api/posts/posts?all=1`, {
+    headers: { 'X-Admin-Key': adminKey },
+    signal,
+  })
+
+  if (res.status === 401) throw new Error('Admin key rejected.')
+  if (!res.ok) throw new Error(`Posts request failed (${res.status})`)
+
+  const data = await res.json()
+  return Array.isArray(data) ? data : []
+}
+
+export async function setPostPublished(
+  slug: string,
+  published: boolean,
+  adminKey: string
+): Promise<void> {
+  const res = await fetch(`${API_BASE}/api/posts/posts`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Admin-Key': adminKey,
+    },
+    body: JSON.stringify({ slug, published }),
+  })
+
+  if (res.status === 401) throw new Error('Admin key rejected.')
+  if (res.status === 404) throw new Error(`Post ${slug} not found.`)
+  if (!res.ok) throw new Error(`Update failed (${res.status})`)
 }
 
 export async function subscribe(email: string, signal?: AbortSignal): Promise<void> {
