@@ -1,59 +1,87 @@
-import { Box, Heading, Text, Container, Flex } from '@chakra-ui/react'
+import { Box, Heading, Text, Container, SimpleGrid, VStack } from '@chakra-ui/react'
+import { sectionPadding, sectionHeaderGap, sectionHeaderMargin, eyebrowStyles, cardBodySize } from '../styles/section'
+
+const members = [
+  {
+    name: 'Toby',
+    role: 'Website and game development',
+    body: 'Leads the front end and web integration, and contributes to core game logic.',
+  },
+  {
+    name: 'Joseph',
+    role: 'Game development',
+    body: 'Focuses on gameplay features and the systems behind them.',
+  },
+  {
+    name: 'Gurjot',
+    role: 'Game development',
+    body: 'Works on Unity development and gameplay programming.',
+  },
+  {
+    name: 'Umar',
+    role: 'Design and documentation',
+    body: 'Creates UI layouts and manages development documentation.',
+  },
+  {
+    name: 'Michael',
+    role: 'Design and documentation',
+    body: 'Works on game design elements and documentation structure.',
+  },
+]
 
 export default function TheTeamSection() {
   return (
-    <Box bg="black" py={{ base: 10, md: 20 }} w="100%">
+    <Box
+      bg="panelBg"
+      borderTop="1px solid"
+      borderColor="hairline"
+      py={sectionPadding}
+      w="100%"
+    >
       <Container maxW="container.lg">
-        <Heading
-          color="white"
-          mb={12}
-          textAlign="center"
-          fontSize={{ base: '2xl', md: '4xl' }}
-        >
-          Meet The Team
-        </Heading>
+        <VStack gap={sectionHeaderGap} mb={sectionHeaderMargin} textAlign="center">
+          <Text {...eyebrowStyles}>Five of us</Text>
+          <Heading
+            fontSize={{ base: '2xl', md: '4xl' }}
+            letterSpacing="0.12em"
+            color="textPrimary"
+          >
+            MEET THE TEAM
+          </Heading>
+        </VStack>
 
-        <Flex wrap="wrap" justify="center" gap={8}>
-          <Box bg="gray.800" borderRadius="md" p={6} color="white" w={{ base: '100%', md: '45%' }}>
-            <Heading fontSize="xl" mb={2}>Toby</Heading>
-            <Text fontWeight="semibold" mb={2}>Website and Game Development</Text>
-            <Text fontSize="sm">
-              Leads the front-end and web integration, also contributes to core game logic.
-            </Text>
-          </Box>
-
-          <Box bg="gray.800" borderRadius="md" p={6} color="white" w={{ base: '100%', md: '45%' }}>
-            <Heading fontSize="xl" mb={2}>Joseph</Heading>
-            <Text fontWeight="semibold" mb={2}>Game Development</Text>
-            <Text fontSize="sm">
-              Focuses on implementing gameplay features and backend mechanics.
-            </Text>
-          </Box>
-
-          <Box bg="gray.800" borderRadius="md" p={6} color="white" w={{ base: '100%', md: '45%' }}>
-            <Heading fontSize="xl" mb={2}>Gurjot</Heading>
-            <Text fontWeight="semibold" mb={2}>Game Development</Text>
-            <Text fontSize="sm">
-              Helps with Unity development and gameplay programming.
-            </Text>
-          </Box>
-
-          <Box bg="gray.800" borderRadius="md" p={6} color="white" w={{ base: '100%', md: '45%' }}>
-            <Heading fontSize="xl" mb={2}>Umar</Heading>
-            <Text fontWeight="semibold" mb={2}>Design and Documentation</Text>
-            <Text fontSize="sm">
-              Creates UI layouts and manages all development documentation.
-            </Text>
-          </Box>
-
-          <Box bg="gray.800" borderRadius="md" p={6} color="white" w={{ base: '100%', md: '45%' }}>
-            <Heading fontSize="xl" mb={2}>Micheal</Heading>
-            <Text fontWeight="semibold" mb={2}>Design and Documentation</Text>
-            <Text fontSize="sm">
-              Assists with game design elements and documentation structure.
-            </Text>
-          </Box>
-        </Flex>
+        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={6}>
+          {members.map((member) => (
+            <Box
+              key={member.name}
+              bg="panelBgAlt"
+              border="1px solid"
+              borderColor="hairline"
+              borderRadius="sm"
+              p={{ base: 6, md: 8 }}
+              transition="border-color 0.3s ease, background-color 0.3s ease"
+              _hover={{ borderColor: 'accent', bg: 'panelBgHover' }}
+            >
+              <VStack align="start" gap={3}>
+                <Heading fontSize="xl" color="textPrimary" letterSpacing="0.08em">
+                  {member.name}
+                </Heading>
+                <Text
+                  fontFamily="mono"
+                  fontSize="sm"
+                  letterSpacing="0.16em"
+                  textTransform="uppercase"
+                  color="accent"
+                >
+                  {member.role}
+                </Text>
+                <Text fontSize={cardBodySize} color="textMuted" lineHeight="1.8">
+                  {member.body}
+                </Text>
+              </VStack>
+            </Box>
+          ))}
+        </SimpleGrid>
       </Container>
     </Box>
   )

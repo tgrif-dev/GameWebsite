@@ -1,28 +1,45 @@
-import { Box, AspectRatio, Heading, VStack } from '@chakra-ui/react'
+import { Box, AspectRatio, Heading, Text, VStack, Container } from '@chakra-ui/react'
+import { sectionPadding, sectionHeaderGap, sectionHeaderMargin, eyebrowStyles } from '../styles/section'
 
-
-export default function VideoTrailerSection(){
+export default function VideoTrailerSection() {
   return (
-    <>      
-      <Box 
-     overflow="hidden"  backgroundColor={"black"} 
+    <Box
+      bg="pageBg"
+      borderTop="1px solid"
+      borderColor="hairline"
       w="100%"
-      minH={{ base: 'auto', md: '100vh' }}  
-      py={{ base: 10, md: 20 }} 
-      >
-        <VStack gap={6} h = "100%" justify="center" align="center" color="white" textAlign="center">
-            <Heading fontSize={{base:`5xl`, md:`7xl`}} letterSpacing="widest" mb="8px" >
-              Trailer
-            </Heading>
-            <AspectRatio ratio={16 / 9} w="full" maxW="800px" mx="auto">
-                      <iframe
-                        title="Gameplay Trailer"
-                        src="https://www.youtube.com/embed/cAcsMtjKRYk?rel=0&autoplay=0"
-                        allowFullScreen
-                      />
-            </AspectRatio>
+      py={sectionPadding}
+      overflow="hidden"
+    >
+      <Container maxW="container.lg">
+        <VStack gap={sectionHeaderGap} mb={sectionHeaderMargin} textAlign="center">
+          <Text {...eyebrowStyles}>Ninety seconds</Text>
+          <Heading
+            fontSize={{ base: '3xl', md: '5xl' }}
+            letterSpacing="0.15em"
+            color="textPrimary"
+          >
+            TRAILER
+          </Heading>
         </VStack>
-      </Box>
-    </>
+
+        <AspectRatio
+          ratio={16 / 9}
+          w="full"
+          maxW="900px"
+          mx="auto"
+          border="1px solid"
+          borderColor="hairline"
+          borderRadius="sm"
+          overflow="hidden"
+        >
+          <iframe
+            title="Lost Society gameplay trailer"
+            src="https://www.youtube.com/embed/cAcsMtjKRYk?rel=0&autoplay=0"
+            allowFullScreen
+          />
+        </AspectRatio>
+      </Container>
+    </Box>
   )
 }

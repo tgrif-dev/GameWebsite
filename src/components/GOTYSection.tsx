@@ -1,106 +1,82 @@
 import { Box, Heading, Image, VStack, SimpleGrid, Text, Container } from "@chakra-ui/react";
+import { sectionPadding, sectionHeaderGap, sectionHeaderMargin, eyebrowStyles, cardBodySize } from '../styles/section'
+
+const pillars = [
+  {
+    index: '01',
+    image: '/GameImage1.png',
+    title: 'Nothing repeats',
+    body: 'Every run generates a new layout from scratch. No memorised routes, no solved-it-once shortcuts.',
+  },
+  {
+    index: '02',
+    image: '/TitleScreen.png',
+    title: 'It watches you play',
+    body: 'Clear puzzles quickly and it tightens the screws. Get stuck and it eases off. The difficulty meets you where you are.',
+  },
+  {
+    index: '03',
+    image: '/GameImage2.png',
+    title: 'One more run',
+    body: 'Every session ends with a score. Yours is the only one that matters, and it is always beatable.',
+  },
+]
 
 export default function GameOfTheYearSection() {
   return (
-    <Box bg="black" py={{ base: 10, md: 20 }} w="100%">
+    <Box
+      bg="pageBg"
+      borderTop="1px solid"
+      borderColor="hairline"
+      py={sectionPadding}
+      w="100%"
+    >
       <Container maxW="container.xl">
-        <VStack gap={6} color="white" textAlign="center">
-          <Heading fontSize={{ base: "4xl", md: "6xl" }} letterSpacing="widest" mb={{ base: 4, md: 8 }}>
-            Game Of The Year
+        <VStack gap={sectionHeaderGap} mb={sectionHeaderMargin} textAlign="center">
+          <Text {...eyebrowStyles}>What you are getting into</Text>
+          <Heading
+            fontSize={{ base: '3xl', md: '5xl' }}
+            letterSpacing="0.12em"
+            color="textPrimary"
+          >
+            THREE THINGS
           </Heading>
-
-          <SimpleGrid columns={{ base: 1, md: 3 }} gap={6} w="100%">
-            <Box
-              bg="gray.900"
-              borderRadius="md"
-              p={6}
-              textAlign="center"
-              transition="transform 0.3s ease, box-shadow 0.3s ease"
-              willChange="transform"
-              _hover={{
-                transform: "scale(1.03)",
-                boxShadow: "lg",
-                bg: "gray.800"
-              }}
-            >
-              <Image
-                src="/GameImage1.png"
-                alt="Immersive Gameplay"
-                width="100%"
-                aspectRatio={16 / 9}
-                objectFit="cover"
-                borderRadius="md"
-                mb={4}
-              />
-              <Text fontSize={{ base: "lg", md: "xl" }} fontWeight="bold" mb={2}>
-                Immersive Gameplay
-              </Text>
-              <Text fontSize="sm" color="gray.400">
-                Mechanics And Atmosphere That Keep You Playing
-              </Text>
-            </Box>
-
-            <Box
-              bg="gray.900"
-              borderRadius="md"
-              p={6}
-              textAlign="center"
-              transition="transform 0.3s ease, box-shadow 0.3s ease"
-              willChange="transform"
-              _hover={{
-                transform: "scale(1.03)",
-                boxShadow: "lg",
-                bg: "gray.800"
-              }}
-            >
-              <Image
-                src="/TitleScreen.png"
-                alt="Cinematic Visuals"
-                width="100%"
-                aspectRatio={16 / 9}
-                objectFit="cover"
-                borderRadius="md"
-                mb={4}
-              />
-              <Text fontSize={{ base: "lg", md: "xl" }} fontWeight="bold" mb={2}>
-                Cinematic Visuals
-              </Text>
-              <Text fontSize="sm" color="gray.400">
-                Every Frame Carefully Crafted For Atmosphere
-              </Text>
-            </Box>
-
-            <Box
-              bg="gray.900"
-              borderRadius="md"
-              p={6}
-              textAlign="center"
-              transition="transform 0.3s ease, box-shadow 0.3s ease"
-              willChange="transform"
-              _hover={{
-                transform: "scale(1.03)",
-                boxShadow: "lg",
-                bg: "gray.800"
-              }}
-            >
-              <Image
-                src="/GameImage2.png"
-                alt="Evolving Narrative"
-                width="100%"
-                aspectRatio={16 / 9}
-                objectFit="cover"
-                borderRadius="md"
-                mb={4}
-              />
-              <Text fontSize={{ base: "lg", md: "xl" }} fontWeight="bold" mb={2}>
-                Evolving Narrative
-              </Text>
-              <Text fontSize="sm" color="gray.400">
-                Story Choices That Stick With You Long After You Play
-              </Text>
-            </Box>
-          </SimpleGrid>
         </VStack>
+
+        <SimpleGrid columns={{ base: 1, md: 3 }} gap={{ base: 8, md: 6 }} w="100%">
+          {pillars.map((pillar) => (
+            <Box
+              key={pillar.index}
+              bg="panelBg"
+              border="1px solid"
+              borderColor="hairline"
+              borderRadius="sm"
+              overflow="hidden"
+              transition="border-color 0.3s ease, background-color 0.3s ease"
+              _hover={{ borderColor: 'accent', bg: 'panelBgAlt' }}
+            >
+              <Image
+                src={pillar.image}
+                alt={pillar.title}
+                width="100%"
+                aspectRatio={16 / 9}
+                objectFit="cover"
+              />
+
+              <VStack align="start" gap={3} p={{ base: 6, md: 8 }}>
+                <Text fontFamily="mono" fontSize="sm" letterSpacing="0.2em" color="accent">
+                  {pillar.index}
+                </Text>
+                <Heading fontSize={{ base: 'lg', md: 'xl' }} color="textPrimary">
+                  {pillar.title}
+                </Heading>
+                <Text fontSize={cardBodySize} color="textMuted" lineHeight="1.8">
+                  {pillar.body}
+                </Text>
+              </VStack>
+            </Box>
+          ))}
+        </SimpleGrid>
       </Container>
     </Box>
   );

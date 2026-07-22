@@ -1,17 +1,15 @@
-
-import CallToActionSection from "../components/ctaSection";
 import TeamIntroSection from "../components/teamIntroSection";
 import TheTeamSection from "../components/theTeamSection";
+import CallToActionSection from "../components/ctaSection";
 import { Box } from '@chakra-ui/react'
+import { pageOffset } from '../styles/section'
 
 export default function TeamPage() {
   return (
-    <>
-      <Box pt="96px">
-        <TeamIntroSection />
-        <TheTeamSection />
-        <CallToActionSection />
-      </Box>
-    </>
+    <Box pt={pageOffset}>
+      <TeamIntroSection />
+      <TheTeamSection />
+      <CallToActionSection />
+    </Box>
   )
 }

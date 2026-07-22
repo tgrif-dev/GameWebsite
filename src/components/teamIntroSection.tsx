@@ -1,40 +1,52 @@
 import { Box, Heading, Text, SimpleGrid, Image, VStack, Container } from '@chakra-ui/react'
+import { pageTopPadding, sectionPadding, sectionHeaderGap, sectionHeaderMargin, eyebrowStyles } from '../styles/section'
 
 export default function TeamIntroSection() {
   return (
-    <Box w="full" bg="gray.900" pt={{ base: 6, md: 8 }} pb={{ base: 16, md: 20 }}>
+    <Box w="full" bg="pageBg" pt={pageTopPadding} pb={sectionPadding}>
       <Container maxW="container.lg">
-        <VStack gap={10} h="100%" justify="center" align="center" color="white" textAlign={{ base: "center", md: "left" }}>
-          <Heading fontSize={{ base: '3xl', md: '5xl' }} letterSpacing="widest" textAlign={{ base: 'center', md: 'left' }}>
-            The Team
+        <VStack gap={sectionHeaderGap} align="start" mb={sectionHeaderMargin}>
+          <Text {...eyebrowStyles}>Who made this</Text>
+          <Heading
+            fontSize={{ base: '3xl', md: '5xl' }}
+            letterSpacing="0.12em"
+            color="textPrimary"
+          >
+            THE TEAM
           </Heading>
-
-          <SimpleGrid columns={{ base: 1, md: 2 }} w="100%" gap={{ base: 10, md: 16 }}>
-            <VStack align="start" gap={4}>
-              <Text fontSize={{ base: "md", md: "lg" }}>
-                <strong>Inversion</strong> is a game currently under development as a university project.
-              </Text>
-              <Text fontSize={{ base: "md", md: "lg" }}>
-                The team consists of five students with varying levels of development experience. We are committed to delivering the highest possible quality, providing the best gaming experience we can to all of our users.
-              </Text>
-              <Text fontSize={{ base: "md", md: "lg" }}>
-                Throught the development of the game, we aim to keep you updated with the latest updates regarding development. We will do this via social media posts, and an email newsletter.
-              </Text>
-            </VStack>
-
-            <Box flex="1" textAlign="center" px={{ base: 0, md: 4 }}>
-              <Image
-                src="TheTeam.png"
-                alt="What we're working on"
-                objectFit="cover"
-                borderRadius="md"
-                maxW="100%"
-                maxH="300px"
-                mx="auto"
-              />
-            </Box>
-          </SimpleGrid>
         </VStack>
+
+        <SimpleGrid columns={{ base: 1, md: 2 }} w="100%" gap={{ base: 10, md: 16 }}>
+          <VStack align="start" gap={5}>
+            <Text fontSize={{ base: 'md', md: 'lg' }} color="textMuted" lineHeight="1.9">
+              Lost Society is built by five students at Aston University as an eighteen
+              month team project, with a range of experience between us.
+            </Text>
+            <Text fontSize={{ base: 'md', md: 'lg' }} color="textMuted" lineHeight="1.9">
+              We split the work by strength rather than spreading everyone thinly across
+              everything, which is how a team this size ships something finished instead
+              of something half built in five directions.
+            </Text>
+            <Text fontSize={{ base: 'md', md: 'lg' }} color="textMuted" lineHeight="1.9">
+              The devlog is where we write up what we are working on. The newsletter
+              sends the same posts to your inbox.
+            </Text>
+          </VStack>
+
+          <Box textAlign="center">
+            <Image
+              src="TheTeam.png"
+              alt="The Lost Society team"
+              objectFit="cover"
+              border="1px solid"
+              borderColor="hairline"
+              borderRadius="sm"
+              maxW="100%"
+              maxH="320px"
+              mx="auto"
+            />
+          </Box>
+        </SimpleGrid>
       </Container>
     </Box>
   )

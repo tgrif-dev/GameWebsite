@@ -5,56 +5,81 @@ import {
   VStack,
   Link,
   SimpleGrid,
-  HStack,
-  Icon,
   Text,
+  Heading,
 } from '@chakra-ui/react';
-import { FaFacebook, FaInstagram, FaYoutube, FaLinkedin } from 'react-icons/fa';
+import { sectionPadding, labelStyles } from '../styles/section'
+
+const footerLinkStyles = {
+  fontSize: 'md',
+  color: 'textMuted',
+  transition: 'color 0.2s ease',
+  _hover: { color: 'accent', textDecoration: 'none' },
+}
 
 export default function Footer() {
   return (
-    <Box bg="black" color="white" py={{ base: 6, md: 10 }}>
+    <Box
+      bg="panelBg"
+      borderTop="1px solid"
+      borderColor="hairline"
+      py={sectionPadding}
+    >
       <Container maxW="container.xl">
         <Flex
           direction={{ base: 'column', md: 'row' }}
           justify="space-between"
           align={{ base: 'center', md: 'flex-start' }}
-          gap={8}
+          gap={{ base: 10, md: 8 }}
+          textAlign={{ base: 'center', md: 'left' }}
         >
-          <VStack align={{ base: 'center', md: 'start' }} gap={2}>
-            <Text fontWeight="bold" fontSize="lg">
-              Inversion Game
+          <VStack align={{ base: 'center', md: 'start' }} gap={3} maxW="340px">
+            <Heading
+              fontSize="lg"
+              color="textPrimary"
+              letterSpacing="0.22em"
+              fontWeight="700"
+            >
+              LOST SOCIETY
+            </Heading>
+            <Text fontSize="md" color="textSubtle" lineHeight="1.8">
+              A procedurally generated puzzle game, built as a team project at Aston University.
             </Text>
-            <HStack gap={4}>
-              <Link href="#team" aria-label="Facebook">
-                <Icon as={FaFacebook} color="white" boxSize={5} />
-              </Link>
-              <Link href="#team" aria-label="Instagram">
-                <Icon as={FaInstagram} color="white" boxSize={5} />
-              </Link>
-              <Link href="#team" aria-label="YouTube">
-                <Icon as={FaYoutube} color="white" boxSize={5} />
-              </Link>
-              <Link href="#team" aria-label="LinkedIn">
-                <Icon as={FaLinkedin} color="white" boxSize={5} />
-              </Link>
-            </HStack>
           </VStack>
 
-          <SimpleGrid
-            columns={{ base: 1, md: 2 }}
-            gap={8}
-            textAlign={{ base: 'center', md: 'left' }}
-          >
-            <VStack align={{ base: 'center', md: 'start' }} gap={2}>
-              <Link href="/team" color="white">The Team</Link>
-              <Link href="/minimum-requirements" color="white">Minimum Requirements</Link>
+          <SimpleGrid columns={{ base: 1, sm: 2 }} gap={{ base: 8, md: 16 }}>
+            <VStack align={{ base: 'center', md: 'start' }} gap={3}>
+              <Text {...labelStyles}>The game</Text>
+              <Link href="/about" {...footerLinkStyles}>About the game</Link>
+              <Link href="/gallery" {...footerLinkStyles}>Gallery</Link>
+              <Link href="/download" {...footerLinkStyles}>Download</Link>
             </VStack>
-            <VStack align={{ base: 'center', md: 'start' }} gap={2}>
-              <Link href="/signup" color="white">Sign Up</Link>
-              <Link href="/about" color="white">About</Link>
+
+            <VStack align={{ base: 'center', md: 'start' }} gap={3}>
+              <Text {...labelStyles}>The project</Text>
+              <Link href="/blog" {...footerLinkStyles}>Devlog</Link>
+              <Link href="/team" {...footerLinkStyles}>The team</Link>
+              <Link href="/#newsletter" {...footerLinkStyles}>Newsletter</Link>
             </VStack>
           </SimpleGrid>
+        </Flex>
+
+        <Flex
+          direction={{ base: 'column', md: 'row' }}
+          justify="space-between"
+          align="center"
+          gap={4}
+          mt={{ base: 10, md: 14 }}
+          pt={6}
+          borderTop="1px solid"
+          borderColor="hairline"
+        >
+          <Text fontFamily="mono" fontSize="sm" color="textSubtle" letterSpacing="0.14em">
+            Aston University team project
+          </Text>
+          <Link href="/privacy" fontFamily="mono" fontSize="sm" letterSpacing="0.14em" {...footerLinkStyles}>
+            Privacy
+          </Link>
         </Flex>
       </Container>
     </Box>
