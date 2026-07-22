@@ -25,10 +25,27 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	secret := os.Getenv("UNITY_SECRET_KEY")
 	boardID := os.Getenv("UNITY_LEADERBOARD_ID")
 
-	if projectID == "" || envID == "" || keyID == "" || secret == "" || boardID == "" {
-		fmt.Fprintln(w, "STOPPED: a variable is missing")
-		return
+	scoresURL := fmt.Sprintf(
+		"https://services.api.unity.com/leaderboards/v1/projects/%s/environments/%s/leaderboards/%s/scores?limit=25",
+		projectID, envID, boardID,
+	)
+
+	fmt.Fprintln(w, "=== ATTEMPT 1: Basic auth directly ===")
+
+	basicReq, _ := http.NewRequest(http.MethodGet, scoresURL, nil)
+	basicReq.SetBasicAuth(keyID, secret)
+
+	basicRes, err := client.Do(basicReq)
+	if err != nil {
+		fmt.Fprintf(w, "request error: %v\n", err)
+	} else {
+		basicBody, _ := io.ReadAll(basicRes.Body)
+		basicRes.Body.Close()
+		fmt.Fprintf(w, "status: %d\n", basicRes.StatusCode)
+		fmt.Fprintf(w, "body: %s\n", string(basicBody))
 	}
+
+	fmt.Fprintln(w, "\n=== ATTEMPT 2: exchanged bearer token ===")
 
 	tokenURL := fmt.Sprintf("https://services.api.unity.com/auth/v1/token-exchange?projectId=%s&environmentId=%s", projectID, envID)
 	tokenReq, _ := http.NewRequest(http.MethodPost, tokenURL, nil)
@@ -37,43 +54,29 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 	tokenRes, err := client.Do(tokenReq)
 	if err != nil {
-		fmt.Fprintf(w, "TOKEN REQUEST ERROR: %v\n", err)
+		fmt.Fprintf(w, "token error: %v\n", err)
 		return
 	}
-	defer tokenRes.Body.Close()
-
 	tokenBody, _ := io.ReadAll(tokenRes.Body)
-	fmt.Fprintf(w, "token status: %d\n", tokenRes.StatusCode)
-
-	if tokenRes.StatusCode < 200 || tokenRes.StatusCode > 299 {
-		fmt.Fprintf(w, "token rejected: %s\n", string(tokenBody))
-		return
-	}
+	tokenRes.Body.Close()
 
 	var parsed tokenResponse
-	if err := json.Unmarshal(tokenBody, &parsed); err != nil {
-		fmt.Fprintf(w, "TOKEN PARSE ERROR: %v\n", err)
-		return
-	}
+	json.Unmarshal(tokenBody, &parsed)
 
-	fmt.Fprintf(w, "token received: %v\n\n", parsed.AccessToken != "")
+	bearerReq, _ := http.NewRequest(http.MethodGet, scoresURL, nil)
+	bearerReq.Header.Set("Authorization", "Bearer "+parsed.AccessToken)
 
-	scoresURL := fmt.Sprintf(
-		"https://services.api.unity.com/leaderboards/v1/projects/%s/environments/%s/leaderboards/%s/scores?limit=25",
-		projectID, envID, boardID,
-	)
-
-	scoresReq, _ := http.NewRequest(http.MethodGet, scoresURL, nil)
-	scoresReq.Header.Set("Authorization", "Bearer "+parsed.AccessToken)
-
-	scoresRes, err := client.Do(scoresReq)
+	bearerRes, err := client.Do(bearerReq)
 	if err != nil {
-		fmt.Fprintf(w, "SCORES REQUEST ERROR: %v\n", err)
+		fmt.Fprintf(w, "request error: %v\n", err)
 		return
 	}
-	defer scoresRes.Body.Close()
+	bearerBody, _ := io.ReadAll(bearerRes.Body)
+	bearerRes.Body.Close()
 
-	scoresBody, _ := io.ReadAll(scoresRes.Body)
-	fmt.Fprintf(w, "scores status: %d\n", scoresRes.StatusCode)
-	fmt.Fprintf(w, "scores body: %s\n", string(scoresBody))
+	fmt.Fprintf(w, "status: %d\n", bearerRes.StatusCode)
+	fmt.Fprintf(w, "body: %s\n", string(bearerBody))
+
+	fmt.Fprintln(w, "\n=== TOKEN PAYLOAD ===")
+	fmt.Fprintf(w, "%s\n", string(tokenBody))
 }
