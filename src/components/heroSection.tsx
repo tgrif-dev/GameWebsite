@@ -1,6 +1,5 @@
 import { Box, Heading, Text, VStack, HStack, Button } from '@chakra-ui/react'
-import heroImage from '../assets/hero.png'
-
+import heroImage from '../assets/hero.webp'
 export default function Hero() {
   return (
     <Box
