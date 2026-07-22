@@ -35,7 +35,8 @@ export default function VideoTrailerSection() {
         >
           <iframe
             title="Lost Society gameplay trailer"
-            src="https://www.youtube.com/embed/cAcsMtjKRYk?rel=0&autoplay=0"
+            src="https://www.youtube-nocookie.com/embed/cAcsMtjKRYk?rel=0&autoplay=0"
+            loading="lazy"
             allowFullScreen
           />
         </AspectRatio>
