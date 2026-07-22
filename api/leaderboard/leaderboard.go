@@ -66,7 +66,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	url := fmt.Sprintf(
-		"https://services.api.unity.com/leaderboards/v1/projects/%s/environments/%s/leaderboards/%s/scores?limit=20",
+		"https://services.api.unity.com/leaderboards/v1/projects/%s/environments/%s/leaderboards/%s/scores?limit=40",
 		projectID, envID, boardID,
 	)
 
