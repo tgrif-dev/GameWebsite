@@ -25,12 +25,6 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	secret := os.Getenv("UNITY_SECRET_KEY")
 	boardID := os.Getenv("UNITY_LEADERBOARD_ID")
 
-	fmt.Fprintf(w, "project set: %v\n", projectID != "")
-	fmt.Fprintf(w, "env set: %v\n", envID != "")
-	fmt.Fprintf(w, "key set: %v\n", keyID != "")
-	fmt.Fprintf(w, "secret set: %v\n", secret != "")
-	fmt.Fprintf(w, "board: %s\n\n", boardID)
-
 	if projectID == "" || envID == "" || keyID == "" || secret == "" || boardID == "" {
 		fmt.Fprintln(w, "STOPPED: a variable is missing")
 		return
@@ -51,14 +45,14 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	tokenBody, _ := io.ReadAll(tokenRes.Body)
 	fmt.Fprintf(w, "token status: %d\n", tokenRes.StatusCode)
 
-	if tokenRes.StatusCode != http.StatusOK {
-		fmt.Fprintf(w, "token body: %s\n", string(tokenBody))
+	if tokenRes.StatusCode < 200 || tokenRes.StatusCode > 299 {
+		fmt.Fprintf(w, "token rejected: %s\n", string(tokenBody))
 		return
 	}
 
 	var parsed tokenResponse
 	if err := json.Unmarshal(tokenBody, &parsed); err != nil {
-		fmt.Fprintf(w, "TOKEN PARSE ERROR: %v\nbody: %s\n", err, string(tokenBody))
+		fmt.Fprintf(w, "TOKEN PARSE ERROR: %v\n", err)
 		return
 	}
 
