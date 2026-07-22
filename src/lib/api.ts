@@ -23,6 +23,17 @@ export type NewPost = {
   body: string
 }
 
+export type LeaderboardEntry = {
+  rank: number
+  name: string
+  time: number
+}
+
+export type LeaderboardResponse = {
+  entries: LeaderboardEntry[]
+  total: number
+}
+
 export class NotFoundError extends Error {}
 
 export async function fetchPosts(signal?: AbortSignal): Promise<PostSummary[]> {
@@ -105,6 +116,19 @@ export async function broadcast(slug: string, adminKey: string): Promise<number>
 
   const data = await res.json()
   return data.sent ?? 0
+}
+
+export async function fetchLeaderboard(
+  signal?: AbortSignal
+): Promise<LeaderboardResponse> {
+  const res = await fetch(`${API_BASE}/api/leaderboard/leaderboard`, { signal })
+  if (!res.ok) throw new Error(`Leaderboard request failed (${res.status})`)
+  const data = await res.json()
+  return { entries: data.entries ?? [], total: data.total ?? 0 }
+}
+
+export function formatTime(seconds: number): string {
+  return `${seconds.toFixed(2)}s`
 }
 
 export function formatPostDate(value: string): string {

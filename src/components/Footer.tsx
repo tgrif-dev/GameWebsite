@@ -52,6 +52,7 @@ export default function Footer() {
               <Text {...labelStyles}>The game</Text>
               <Link href="/about" {...footerLinkStyles}>About the game</Link>
               <Link href="/gallery" {...footerLinkStyles}>Gallery</Link>
+              <Link href="/leaderboard" {...footerLinkStyles}>Leaderboard</Link>
               <Link href="/download" {...footerLinkStyles}>Download</Link>
             </VStack>
 

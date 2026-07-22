@@ -3,21 +3,56 @@ package handler
 import (
 	"encoding/json"
 	"fmt"
-	"io"
 	"net/http"
 	"os"
 	"time"
 )
 
-type tokenResponse struct {
-	AccessToken string `json:"accessToken"`
+type unityEntry struct {
+	PlayerID string  `json:"playerId"`
+	Rank     int     `json:"rank"`
+	Score    float64 `json:"score"`
+}
+
+type unityScores struct {
+	Results []unityEntry `json:"results"`
+	Total   int          `json:"total"`
+}
+
+type publicEntry struct {
+	Rank int     `json:"rank"`
+	Name string  `json:"name"`
+	Time float64 `json:"time"`
+}
+
+type publicResponse struct {
+	Entries []publicEntry `json:"entries"`
+	Total   int           `json:"total"`
 }
 
 var client = &http.Client{Timeout: 10 * time.Second}
 
+func shortID(id string) string {
+	runes := []rune(id)
+	if len(runes) <= 6 {
+		return string(runes)
+	}
+	return string(runes[:6])
+}
+
 func Handler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Content-Type", "text/plain")
+	w.Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS")
+
+	if r.Method == http.MethodOptions {
+		w.WriteHeader(http.StatusOK)
+		return
+	}
+
+	if r.Method != http.MethodGet {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
 
 	projectID := os.Getenv("UNITY_PROJECT_ID")
 	envID := os.Getenv("UNITY_ENV_ID")
@@ -25,58 +60,55 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	secret := os.Getenv("UNITY_SECRET_KEY")
 	boardID := os.Getenv("UNITY_LEADERBOARD_ID")
 
-	scoresURL := fmt.Sprintf(
-		"https://services.api.unity.com/leaderboards/v1/projects/%s/environments/%s/leaderboards/%s/scores?limit=25",
+	if projectID == "" || envID == "" || keyID == "" || secret == "" || boardID == "" {
+		http.Error(w, "Leaderboard not configured", http.StatusInternalServerError)
+		return
+	}
+
+	url := fmt.Sprintf(
+		"https://services.api.unity.com/leaderboards/v1/projects/%s/environments/%s/leaderboards/%s/scores?limit=20",
 		projectID, envID, boardID,
 	)
 
-	fmt.Fprintln(w, "=== ATTEMPT 1: Basic auth directly ===")
-
-	basicReq, _ := http.NewRequest(http.MethodGet, scoresURL, nil)
-	basicReq.SetBasicAuth(keyID, secret)
-
-	basicRes, err := client.Do(basicReq)
+	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
-		fmt.Fprintf(w, "request error: %v\n", err)
-	} else {
-		basicBody, _ := io.ReadAll(basicRes.Body)
-		basicRes.Body.Close()
-		fmt.Fprintf(w, "status: %d\n", basicRes.StatusCode)
-		fmt.Fprintf(w, "body: %s\n", string(basicBody))
-	}
-
-	fmt.Fprintln(w, "\n=== ATTEMPT 2: exchanged bearer token ===")
-
-	tokenURL := fmt.Sprintf("https://services.api.unity.com/auth/v1/token-exchange?projectId=%s&environmentId=%s", projectID, envID)
-	tokenReq, _ := http.NewRequest(http.MethodPost, tokenURL, nil)
-	tokenReq.SetBasicAuth(keyID, secret)
-	tokenReq.Header.Set("Content-Type", "application/json")
-
-	tokenRes, err := client.Do(tokenReq)
-	if err != nil {
-		fmt.Fprintf(w, "token error: %v\n", err)
+		http.Error(w, "Leaderboard unavailable", http.StatusInternalServerError)
 		return
 	}
-	tokenBody, _ := io.ReadAll(tokenRes.Body)
-	tokenRes.Body.Close()
+	req.SetBasicAuth(keyID, secret)
 
-	var parsed tokenResponse
-	json.Unmarshal(tokenBody, &parsed)
-
-	bearerReq, _ := http.NewRequest(http.MethodGet, scoresURL, nil)
-	bearerReq.Header.Set("Authorization", "Bearer "+parsed.AccessToken)
-
-	bearerRes, err := client.Do(bearerReq)
+	res, err := client.Do(req)
 	if err != nil {
-		fmt.Fprintf(w, "request error: %v\n", err)
+		http.Error(w, "Leaderboard unavailable", http.StatusBadGateway)
 		return
 	}
-	bearerBody, _ := io.ReadAll(bearerRes.Body)
-	bearerRes.Body.Close()
+	defer res.Body.Close()
 
-	fmt.Fprintf(w, "status: %d\n", bearerRes.StatusCode)
-	fmt.Fprintf(w, "body: %s\n", string(bearerBody))
+	if res.StatusCode < 200 || res.StatusCode > 299 {
+		http.Error(w, "Leaderboard unavailable", http.StatusBadGateway)
+		return
+	}
 
-	fmt.Fprintln(w, "\n=== TOKEN PAYLOAD ===")
-	fmt.Fprintf(w, "%s\n", string(tokenBody))
+	var scores unityScores
+	if err := json.NewDecoder(res.Body).Decode(&scores); err != nil {
+		http.Error(w, "Leaderboard unavailable", http.StatusBadGateway)
+		return
+	}
+
+	entries := make([]publicEntry, 0, len(scores.Results))
+	for _, entry := range scores.Results {
+		name := shortID(entry.PlayerID)
+		if name == "" {
+			name = "unknown"
+		}
+		entries = append(entries, publicEntry{
+			Rank: entry.Rank + 1,
+			Name: name,
+			Time: entry.Score,
+		})
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Cache-Control", "public, max-age=60")
+	json.NewEncoder(w).Encode(publicResponse{Entries: entries, Total: scores.Total})
 }

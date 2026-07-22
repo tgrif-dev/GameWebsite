@@ -69,9 +69,15 @@ export default function Header() {
 
             <Spacer />
 
-            <HStack gap={10} display={{ base: 'none', md: 'flex' }}>
+            <HStack gap={8} display={{ base: 'none', md: 'flex' }}>
               <Link href="/about" {...navLinkStyles}>
                 The Game
+              </Link>
+              <Link href="/gallery" {...navLinkStyles}>
+                Gallery
+              </Link>
+              <Link href="/leaderboard" {...navLinkStyles}>
+                Leaderboard
               </Link>
               <Link href="/blog" {...navLinkStyles}>
                 Devlog
@@ -117,14 +123,17 @@ export default function Header() {
         <Link href="/about" {...navLinkStyles}>
           The Game
         </Link>
+        <Link href="/gallery" {...navLinkStyles}>
+          Gallery
+        </Link>
+        <Link href="/leaderboard" {...navLinkStyles}>
+          Leaderboard
+        </Link>
         <Link href="/blog" {...navLinkStyles}>
           Devlog
         </Link>
         <Link href="/team" {...navLinkStyles}>
           The Team
-        </Link>
-        <Link href="/gallery" {...navLinkStyles}>
-          Gallery
         </Link>
         <Link href="/#newsletter" {...navLinkStyles}>
           Newsletter
