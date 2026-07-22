@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { Box, Container, Heading, Text, VStack } from '@chakra-ui/react'
 import * as THREE from 'three'
-import { sectionPadding, sectionHeaderGap, sectionHeaderMargin, eyebrowStyles } from '../styles/section'
+import { sectionPadding, sectionHeaderGap, eyebrowStyles } from '../styles/section'
 
 function PyramidCanvas() {
   const mountRef = useRef<HTMLDivElement>(null)

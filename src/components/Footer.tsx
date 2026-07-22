@@ -77,7 +77,13 @@ export default function Footer() {
           <Text fontFamily="mono" fontSize="sm" color="textSubtle" letterSpacing="0.14em">
             Aston University team project
           </Text>
-          <Link href="/privacy" fontFamily="mono" fontSize="sm" letterSpacing="0.14em" {...footerLinkStyles}>
+          <Link
+            href="/privacy"
+            {...footerLinkStyles}
+            fontFamily="mono"
+            fontSize="sm"
+            letterSpacing="0.14em"
+          >
             Privacy
           </Link>
         </Flex>
