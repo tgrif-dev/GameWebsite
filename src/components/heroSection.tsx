@@ -1,5 +1,6 @@
 import { Box, Heading, Text, VStack, HStack, Button } from '@chakra-ui/react'
-import heroImage from '../assets/hero.webp'
+import heroImage from '../assets/gallery/08-lower-chamber.webp'
+
 export default function Hero() {
   return (
     <Box
@@ -14,8 +15,8 @@ export default function Hero() {
         position="absolute"
         inset="0"
         bgGradient="to-b"
-        gradientFrom="rgba(8, 11, 14, 0.4)"
-        gradientVia="rgba(8, 11, 14, 0.6)"
+        gradientFrom="rgba(8, 11, 14, 0.55)"
+        gradientVia="rgba(8, 11, 14, 0.72)"
         gradientTo="panelBg"
       />
 
@@ -54,8 +55,8 @@ export default function Hero() {
           maxW="560px"
           lineHeight="1.8"
         >
-          Every run rebuilds the ruins from scratch. The deeper you get, the harder
-          it pushes back. Beat your best, then find out how much further it goes.
+          Five rooms stand between you and the way out. Solve what is in front of
+          you, beat the clock, then try to beat your own time.
         </Text>
 
         <HStack gap={4} pt={2} flexWrap="wrap" justify="center">

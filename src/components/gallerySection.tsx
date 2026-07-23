@@ -12,7 +12,7 @@ const images = Object.keys(modules)
   .sort()
   .map((path) => ({
     src: modules[path],
-    name: path.split('/').pop()?.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ') ?? '',
+    name: path.split('/').pop()?.replace(/\.[^.]+$/, '').replace(/^\d+-/, '').replace(/[-_]/g, ' ') ?? '',
   }))
 
 export default function GallerySection() {
@@ -30,7 +30,7 @@ export default function GallerySection() {
     <Box bg="pageBg" w="100%" pt={pageTopPadding} pb={sectionPadding} minH="60vh">
       <Container maxW="container.xl">
         <VStack gap={sectionHeaderGap} align="start" mb={sectionHeaderMargin}>
-          <Text {...eyebrowStyles}>Every run is different</Text>
+          <Text {...eyebrowStyles}>Five rooms</Text>
           <Heading
             fontSize={{ base: '3xl', md: '5xl' }}
             letterSpacing="0.12em"
@@ -39,7 +39,8 @@ export default function GallerySection() {
             GALLERY
           </Heading>
           <Text color="textMuted" fontSize={{ base: 'md', md: 'lg' }} maxW="620px" lineHeight="1.8">
-            Screenshots from real runs. None of these layouts were designed by hand.
+            Screenshots from the finished build. The rooms you will be working through
+            and the puzzles standing in the way.
           </Text>
         </VStack>
 

@@ -1,6 +1,15 @@
 import { Box, Heading, Text, SimpleGrid, Image, VStack, Container } from '@chakra-ui/react'
 import { pageTopPadding, sectionPadding, sectionHeaderGap, sectionHeaderMargin, eyebrowStyles, labelStyles } from '../styles/section'
 
+const modules = import.meta.glob('../assets/gallery/*.{png,jpg,jpeg,webp,avif}', {
+  eager: true,
+  query: '?url',
+  import: 'default',
+}) as Record<string, string>
+
+const galleryImages = Object.keys(modules).sort().map((path) => modules[path])
+const featureImage = galleryImages[galleryImages.length - 1]
+
 const facts = [
   { label: 'Engine', value: 'Unity' },
   { label: 'Platform', value: 'Windows' },
@@ -24,36 +33,42 @@ export default function AboutSection() {
             </Heading>
           </VStack>
 
-          <SimpleGrid columns={{ base: 1, md: 2 }} w="100%" gap={{ base: 10, md: 16 }}>
+          <SimpleGrid
+            columns={{ base: 1, md: featureImage ? 2 : 1 }}
+            w="100%"
+            gap={{ base: 10, md: 16 }}
+          >
             <VStack align="start" gap={5}>
               <Text fontSize={{ base: 'md', md: 'lg' }} color="textMuted" lineHeight="1.9">
                 Lost Society is a puzzle game about picking through what a civilisation
-                left behind. Each run drops you into a layout the game builds on the
-                spot, so there is nothing to memorise and no route to reuse.
+                left behind. Five rooms stand between you and the way out, each holding
+                a set of puzzles that have to be solved before the door will open.
               </Text>
               <Text fontSize={{ base: 'md', md: 'lg' }} color="textMuted" lineHeight="1.9">
-                The difficulty is not fixed. Solve things quickly and the game raises
-                the pressure. Stall on a puzzle and it quietly gives ground. The aim is
-                a run that stays hard without becoming a wall.
+                The game does not simply sit and wait. Stall on a puzzle and a hint
+                surfaces; keep moving and it stays out of your way. The aim is a run
+                that stays difficult without ever becoming a wall.
               </Text>
               <Text fontSize={{ base: 'md', md: 'lg' }} color="textMuted" lineHeight="1.9">
-                Every run ends with a score. That number is the reason to start another
-                one.
+                Every completed run is timed and posted to the leaderboard. That number
+                is the reason to start another one.
               </Text>
             </VStack>
 
-            <Box textAlign="center">
-              <Image
-                src="InversionTitle.png"
-                alt="Lost Society key art"
-                objectFit="cover"
-                border="1px solid"
-                borderColor="hairline"
-                borderRadius="sm"
-                maxW={{ base: '100%', md: '420px' }}
-                mx="auto"
-              />
-            </Box>
+            {featureImage ? (
+              <Box textAlign="center">
+                <Image
+                  src={featureImage}
+                  alt="Lost Society gameplay"
+                  objectFit="cover"
+                  border="1px solid"
+                  borderColor="hairline"
+                  borderRadius="sm"
+                  maxW={{ base: '100%', md: '460px' }}
+                  mx="auto"
+                />
+              </Box>
+            ) : null}
           </SimpleGrid>
         </Container>
       </Box>

@@ -1,24 +1,29 @@
 import { Box, Heading, Image, VStack, SimpleGrid, Text, Container } from "@chakra-ui/react";
 import { sectionPadding, sectionHeaderGap, sectionHeaderMargin, eyebrowStyles, cardBodySize } from '../styles/section'
 
+const modules = import.meta.glob('../assets/gallery/*.{png,jpg,jpeg,webp,avif}', {
+  eager: true,
+  query: '?url',
+  import: 'default',
+}) as Record<string, string>
+
+const galleryImages = Object.keys(modules).sort().map((path) => modules[path])
+
 const pillars = [
   {
     index: '01',
-    image: '/GameImage1.png',
-    title: 'Nothing repeats',
-    body: 'Every run generates a new layout from scratch. No memorised routes, no solved-it-once shortcuts.',
+    title: 'Five rooms, one way out',
+    body: 'A tomb, a library, a classroom and more. Each one holds a set of puzzles standing between you and the next door.',
   },
   {
     index: '02',
-    image: '/TitleScreen.png',
     title: 'It watches you play',
-    body: 'Clear puzzles quickly and it tightens the screws. Get stuck and it eases off. The difficulty meets you where you are.',
+    body: 'Stall on a puzzle and a hint appears. The game gives ground when you need it and stays out of the way when you do not.',
   },
   {
     index: '03',
-    image: '/GameImage2.png',
     title: 'One more run',
-    body: 'Every session ends with a score. Yours is the only one that matters, and it is always beatable.',
+    body: 'Every completed run is timed and posted to the leaderboard. Yours is the only time that matters, and it is always beatable.',
   },
 ]
 
@@ -44,7 +49,7 @@ export default function GameOfTheYearSection() {
         </VStack>
 
         <SimpleGrid columns={{ base: 1, md: 3 }} gap={{ base: 8, md: 6 }} w="100%">
-          {pillars.map((pillar) => (
+          {pillars.map((pillar, i) => (
             <Box
               key={pillar.index}
               bg="panelBg"
@@ -55,13 +60,15 @@ export default function GameOfTheYearSection() {
               transition="border-color 0.3s ease, background-color 0.3s ease"
               _hover={{ borderColor: 'accent', bg: 'panelBgAlt' }}
             >
-              <Image
-                src={pillar.image}
-                alt={pillar.title}
-                width="100%"
-                aspectRatio={16 / 9}
-                objectFit="cover"
-              />
+              {galleryImages[i] ? (
+                <Image
+                  src={galleryImages[i]}
+                  alt={pillar.title}
+                  width="100%"
+                  aspectRatio={16 / 9}
+                  objectFit="cover"
+                />
+              ) : null}
 
               <VStack align="start" gap={3} p={{ base: 6, md: 8 }}>
                 <Text fontFamily="mono" fontSize="sm" letterSpacing="0.2em" color="accent">
