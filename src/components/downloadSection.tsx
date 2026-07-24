@@ -44,7 +44,7 @@ export default function DownloadSection() {
           <VStack align="start" gap={3}>
             <Text {...labelStyles}>How to play</Text>
             <Text fontSize="md" color="textMuted" lineHeight="1.9">
-              Five rooms stand between you and the way out. Solve what is in front of
+              Solve what is in front of
               you, beat the clock, then try to beat your own time.
             </Text>
           </VStack>
