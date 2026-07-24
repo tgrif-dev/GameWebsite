@@ -17,8 +17,7 @@ export default function DownloadSection() {
             DOWNLOAD
           </Heading>
           <Text fontSize={{ base: 'md', md: 'lg' }} color="textMuted" maxW="640px" lineHeight="1.9">
-            Lost Society runs on Windows as a standalone build. No installer and no
-            account required, just unzip it and run.
+            Lost Society runs on Windows as a standalone build. No installer!
           </Text>
         </VStack>
 
@@ -49,7 +48,7 @@ export default function DownloadSection() {
           <VStack align="start" gap={3}>
             <Text {...labelStyles}>How to play</Text>
             <Text fontSize="md" color="textMuted" lineHeight="1.9">
-              Five rooms stand between you and the way out. Solve what is in front of
+              Solve what is in front of
               you, beat the clock, then try to beat your own time.
             </Text>
           </VStack>

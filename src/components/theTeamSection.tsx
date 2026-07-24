@@ -5,11 +5,11 @@ const members = [
   {
     name: 'Rajan Sandher',
     role: 'Concept and documentation',
-    body: 'Aided with concept development, contributed to software requirements definition, supported project planning and evaluation activities, and produced the majority of the project\u2019s technical documentation.',
+    body: 'Aided with concept development, contributed to software requirements definition, supported project planning and evaluation.',
   },
   {
     name: 'Karanveer Singh',
-    role: 'Unity development and leaderboard',
+    role: 'Unity development',
     body: 'Unity development, implementation of the first hard room, the high score timer, anonymous player authentication and the leaderboard, plus GitHub management.',
   },
   {
@@ -25,11 +25,11 @@ const members = [
   {
     name: 'Umar Hussain',
     role: 'Blog and documentation',
-    body: 'Writing of the blog posts, project documentation and website UI design.',
+    body: 'Writing of the blog posts, project documentation.',
   },
   {
     name: 'Gurjot Kaur',
-    role: 'Medium room development',
+    role: 'Unity development And Documentation',
     body: 'Development of the second medium room, including procedural generation, puzzles, UI, visual design, testing and evaluation content.',
   },
   {
@@ -39,7 +39,7 @@ const members = [
   },
   {
     name: 'Michael Howarth',
-    role: 'Software development',
+    role: 'Unity Development',
     body: 'Software development, implementation of the main menu and responsibility for linking the rooms.',
   },
   {

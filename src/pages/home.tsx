@@ -18,7 +18,6 @@ export default function HomePage() {
         <Suspense fallback={<Box h={{ base: '380px', md: '460px' }} w="100%" bg="panelBg" />}>
           <PyramidSection />
         </Suspense>
-        <VideoTrailerSection />
         <CallToActionSecion />
         <NewsletterSection />
       </VStack>
