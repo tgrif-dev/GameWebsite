@@ -3,49 +3,49 @@ import { sectionPadding, sectionHeaderGap, sectionHeaderMargin, eyebrowStyles, c
 
 const members = [
   {
-    name: 'Toby',
-    role: 'Team lead and website',
-    body: 'Led the team and built the project website end to end, and contributed to Unity development and gameplay testing.',
+    name: 'Rajan Sandher',
+    role: 'Concept and documentation',
+    body: 'Aided with concept development, contributed to software requirements definition, supported project planning and evaluation activities, and produced the majority of the project\u2019s technical documentation.',
   },
   {
-    name: 'Karanveer',
-    role: 'Configuration management',
-    body: 'Defined the Git branching and pull request workflow the whole team develops against.',
+    name: 'Karanveer Singh',
+    role: 'Unity development and leaderboard',
+    body: 'Unity development, implementation of the first hard room, the high score timer, anonymous player authentication and the leaderboard, plus GitHub management.',
   },
   {
-    name: 'Natasha',
-    role: 'Game development',
-    body: 'Built the library room and the procedural systems underneath it.',
+    name: 'Usman Jamshaid',
+    role: 'Unity development',
+    body: 'Unity development, easy room implementation and gameplay testing.',
   },
   {
-    name: 'Michael',
-    role: 'Game development',
-    body: 'Handled the main menu and the integration that links the five rooms into one playthrough.',
+    name: 'Dylan Turner',
+    role: 'Unity development',
+    body: 'Unity development and implementation of the second hard room.',
   },
   {
-    name: 'Usman',
-    role: 'Game development',
-    body: 'Worked on puzzle implementation and interface reliability across the rooms.',
+    name: 'Umar Hussain',
+    role: 'Blog and documentation',
+    body: 'Writing of the blog posts, project documentation and website UI design.',
   },
   {
-    name: 'Gurjot',
-    role: 'Game development',
-    body: 'Worked on puzzle design and gameplay programming in Unity.',
+    name: 'Gurjot Kaur',
+    role: 'Medium room development',
+    body: 'Development of the second medium room, including procedural generation, puzzles, UI, visual design, testing and evaluation content.',
   },
   {
-    name: 'Rajan',
-    role: 'Concept and requirements',
-    body: 'Shaped the original concept and the requirements the game was built against.',
+    name: 'Toby Griffiths',
+    role: 'Team leader and website',
+    body: 'Team leader and project website development across the full stack, covering the React front end, Go serverless backend, database, newsletter and leaderboard integration, alongside Unity development, easy room implementation and gameplay testing.',
   },
   {
-    name: 'Umar',
-    role: 'Development blog',
-    body: 'Wrote the devlog posts documenting how the project progressed.',
+    name: 'Michael Howarth',
+    role: 'Software development',
+    body: 'Software development, implementation of the main menu and responsibility for linking the rooms.',
   },
   {
-    name: 'Dylan',
-    role: 'Design and documentation',
-    body: 'Contributed to design decisions and project documentation.',
+    name: 'Natasha Parbhakar',
+    role: 'Team leader and Unity development',
+    body: 'Team leader, Unity room development, gameplay testing and input to the evaluation report.',
   },
 ]
 
@@ -83,7 +83,7 @@ export default function TheTeamSection() {
               _hover={{ borderColor: 'accent', bg: 'panelBgHover' }}
             >
               <VStack align="start" gap={3}>
-                <Heading fontSize="xl" color="textPrimary" letterSpacing="0.08em">
+                <Heading fontSize="lg" color="textPrimary" letterSpacing="0.06em">
                   {member.name}
                 </Heading>
                 <Text
