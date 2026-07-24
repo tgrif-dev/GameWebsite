@@ -27,7 +27,7 @@ export default function CallToActionSection() {
               READ THE DEVLOG
             </Heading>
             <Text fontSize="md" color="textMuted" maxW="460px" lineHeight="1.8">
-              Progress updates, the problems we hit, and how the game changed along the way.
+              Progress updates, the problems we hit, and how the game has grown along the way.
             </Text>
           </VStack>
 

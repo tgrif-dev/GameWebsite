@@ -14,7 +14,7 @@ const facts = [
   { label: 'Engine', value: 'Unity' },
   { label: 'Platform', value: 'Windows' },
   { label: 'Players', value: 'Single player' },
-  { label: 'Team', value: 'Five students' },
+  { label: 'Team', value: 'Nine students' },
 ]
 
 export default function AboutSection() {
@@ -40,18 +40,16 @@ export default function AboutSection() {
           >
             <VStack align="start" gap={5}>
               <Text fontSize={{ base: 'md', md: 'lg' }} color="textMuted" lineHeight="1.9">
-                Lost Society is a puzzle game about picking through what a civilisation
-                left behind. Five rooms stand between you and the way out, each holding
-                a set of puzzles that have to be solved before the door will open.
+                Lost Society is a puzzle game where every second counts. Compete against yourself and others to get 
+                the best time possible! 
               </Text>
               <Text fontSize={{ base: 'md', md: 'lg' }} color="textMuted" lineHeight="1.9">
-                The game does not simply sit and wait. Stall on a puzzle and a hint
-                surfaces; keep moving and it stays out of your way. The aim is a run
-                that stays difficult without ever becoming a wall.
+                The game adapts to you! Stall on a puzzle and receive a hint; keep moving and it stays out of your way. The aim is a run
+                that stays difficult without ever getting stuck!.
               </Text>
               <Text fontSize={{ base: 'md', md: 'lg' }} color="textMuted" lineHeight="1.9">
-                Every completed run is timed and posted to the leaderboard. That number
-                is the reason to start another one.
+                Every completed run is timed and posted to the leaderboard. The top 40 runs can be viewed here
+                on our website. Do you have what it takes?
               </Text>
             </VStack>
 
@@ -95,9 +93,8 @@ export default function AboutSection() {
           <VStack align="start" gap={4} maxW="720px">
             <Text {...eyebrowStyles}>Where we are</Text>
             <Text fontSize={{ base: 'md', md: 'lg' }} color="textMuted" lineHeight="1.9">
-              Lost Society is built in Unity by a team of five as an eighteen month
-              university project. The playable build is finished and we are working
-              through the last round of polish and testing before release.
+              Lost Society is built in Unity by a team of nine as an eighteen month
+              university project. The full game is now available!
             </Text>
             <Text fontSize={{ base: 'md', md: 'lg' }} color="textMuted" lineHeight="1.9">
               The devlog covers how it got here, including the parts that did not work

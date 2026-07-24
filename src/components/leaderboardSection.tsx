@@ -87,8 +87,7 @@ export default function LeaderboardSection() {
             LEADERBOARD
           </Heading>
           <Text color="textMuted" fontSize={{ base: 'md', md: 'lg' }} maxW="620px" lineHeight="1.8">
-            Every completed run is timed. These are the forty quickest, straight from
-            the live scoreboard.
+            Every completed run is timed. These are the forty quickest!
           </Text>
         </VStack>
 

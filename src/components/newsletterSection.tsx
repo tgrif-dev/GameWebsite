@@ -56,12 +56,12 @@ export default function NewsletterSection() {
           </Heading>
 
           <Text color="textMuted" fontSize="md" maxW="540px" lineHeight="1.8">
-            Devlogs and release news, straight to your inbox. No more than one email a month.
+            Devlogs and Announcements, straight to your inbox.
           </Text>
 
           {status === 'done' ? (
             <Text fontFamily="mono" fontSize="md" letterSpacing="0.1em" color="accent" pt={2}>
-              You are on the list. Watch your inbox for the next devlog.
+              You have been added to the list. Watch your inbox!.
             </Text>
           ) : (
             <Box as="form" onSubmit={handleSubmit} w="100%" maxW="560px" pt={2}>

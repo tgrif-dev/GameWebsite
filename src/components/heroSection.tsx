@@ -55,7 +55,7 @@ export default function Hero() {
           maxW="560px"
           lineHeight="1.8"
         >
-          Five rooms stand between you and the way out. Solve what is in front of
+          Several rooms stand between you and the way out. Solve what is in front of
           you, beat the clock, then try to beat your own time.
         </Text>
 

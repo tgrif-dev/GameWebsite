@@ -19,8 +19,7 @@ export default function NotFoundPage() {
 
           <VStack gap={6} align="start" pt={8}>
             <Text color="textMuted" fontSize={{ base: 'md', md: 'lg' }} maxW="600px" lineHeight="1.9">
-              This page does not exist. The link may be out of date, but the devlog and
-              everything else are still where you left them.
+              This page does not exist. The link may be out of date!
             </Text>
 
             <Button

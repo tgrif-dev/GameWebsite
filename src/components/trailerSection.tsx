@@ -13,7 +13,7 @@ export default function VideoTrailerSection() {
     >
       <Container maxW="container.lg">
         <VStack gap={sectionHeaderGap} mb={sectionHeaderMargin} textAlign="center">
-          <Text {...eyebrowStyles}>Ninety seconds</Text>
+          <Text {...eyebrowStyles}>A Sneak Peek</Text>
           <Heading
             fontSize={{ base: '3xl', md: '5xl' }}
             letterSpacing="0.15em"

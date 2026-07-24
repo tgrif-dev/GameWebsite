@@ -12,18 +12,18 @@ const galleryImages = Object.keys(modules).sort().map((path) => modules[path])
 const pillars = [
   {
     index: '01',
-    title: 'Five rooms, one way out',
+    title: 'Each room is different',
     body: 'A tomb, a library, a classroom and more. Each one holds a set of puzzles standing between you and the next door.',
   },
   {
     index: '02',
     title: 'It watches you play',
-    body: 'Stall on a puzzle and a hint appears. The game gives ground when you need it and stays out of the way when you do not.',
+    body: 'Stall on a puzzle and a hint appears.',
   },
   {
     index: '03',
     title: 'One more run',
-    body: 'Every completed run is timed and posted to the leaderboard. Yours is the only time that matters, and it is always beatable.',
+    body: 'Every completed run is timed and posted to the leaderboard, and it is always beatable.',
   },
 ]
 

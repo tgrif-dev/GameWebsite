@@ -30,7 +30,7 @@ export default function GallerySection() {
     <Box bg="pageBg" w="100%" pt={pageTopPadding} pb={sectionPadding} minH="60vh">
       <Container maxW="container.xl">
         <VStack gap={sectionHeaderGap} align="start" mb={sectionHeaderMargin}>
-          <Text {...eyebrowStyles}>Five rooms</Text>
+          <Text {...eyebrowStyles}>See For Yourself</Text>
           <Heading
             fontSize={{ base: '3xl', md: '5xl' }}
             letterSpacing="0.12em"

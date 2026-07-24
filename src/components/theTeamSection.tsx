@@ -4,28 +4,48 @@ import { sectionPadding, sectionHeaderGap, sectionHeaderMargin, eyebrowStyles, c
 const members = [
   {
     name: 'Toby',
-    role: 'Website and game development',
-    body: 'Leads the front end and web integration, and contributes to core game logic.',
+    role: 'Team lead and website',
+    body: 'Led the team and built the project website end to end, and contributed to Unity development and gameplay testing.',
   },
   {
-    name: 'Joseph',
+    name: 'Karanveer',
+    role: 'Configuration management',
+    body: 'Defined the Git branching and pull request workflow the whole team develops against.',
+  },
+  {
+    name: 'Natasha',
     role: 'Game development',
-    body: 'Focuses on gameplay features and the systems behind them.',
+    body: 'Built the library room and the procedural systems underneath it.',
+  },
+  {
+    name: 'Michael',
+    role: 'Game development',
+    body: 'Handled the main menu and the integration that links the five rooms into one playthrough.',
+  },
+  {
+    name: 'Usman',
+    role: 'Game development',
+    body: 'Worked on puzzle implementation and interface reliability across the rooms.',
   },
   {
     name: 'Gurjot',
     role: 'Game development',
-    body: 'Works on Unity development and gameplay programming.',
+    body: 'Worked on puzzle design and gameplay programming in Unity.',
+  },
+  {
+    name: 'Rajan',
+    role: 'Concept and requirements',
+    body: 'Shaped the original concept and the requirements the game was built against.',
   },
   {
     name: 'Umar',
-    role: 'Design and documentation',
-    body: 'Creates UI layouts and manages development documentation.',
+    role: 'Development blog',
+    body: 'Wrote the devlog posts documenting how the project progressed.',
   },
   {
-    name: 'Michael',
+    name: 'Dylan',
     role: 'Design and documentation',
-    body: 'Works on game design elements and documentation structure.',
+    body: 'Contributed to design decisions and project documentation.',
   },
 ]
 
@@ -40,7 +60,7 @@ export default function TheTeamSection() {
     >
       <Container maxW="container.lg">
         <VStack gap={sectionHeaderGap} mb={sectionHeaderMargin} textAlign="center">
-          <Text {...eyebrowStyles}>Five of us</Text>
+          <Text {...eyebrowStyles}>Nine of us</Text>
           <Heading
             fontSize={{ base: '2xl', md: '4xl' }}
             letterSpacing="0.12em"

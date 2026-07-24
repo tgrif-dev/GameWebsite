@@ -72,7 +72,7 @@ export default function DownloadSection() {
             <Text fontSize="md" color="textMuted" lineHeight="1.9">
               Every run generates a fresh set of puzzles, so no two sessions are the
               same. The game adjusts as you go, easing off when you are stuck and
-              pushing harder when you are not. Beat your own best score, then beat it
+              pushing harder when you are not.
               again.
             </Text>
           </VStack>

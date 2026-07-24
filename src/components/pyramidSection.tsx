@@ -166,9 +166,6 @@ export default function PyramidSection() {
           >
             THE MONOLITH
           </Heading>
-          <Text color="textMuted" fontSize="md" maxW="480px" lineHeight="1.8">
-            Whatever they built, they built it to last.
-          </Text>
         </VStack>
 
         <Box
